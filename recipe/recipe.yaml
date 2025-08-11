@@ -21,6 +21,9 @@ requirements:
     - ${{ stdlib('c') }}
     - pkg-config
     - cmake
+    - if: not win
+      then:
+      - make
     - if: build_platform != target_platform
       then:
         - cross-python_${{ target_platform }}
