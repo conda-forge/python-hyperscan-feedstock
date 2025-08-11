@@ -12,7 +12,7 @@ source:
 build:
   number: 0
   skip: win
-  script: ${{ PYTHON }} -m pip install .
+  script: ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   build:
@@ -27,8 +27,7 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
-    - pdm-backend
+    - scikit-build-core
     - vectorscan
   run:
     - python
@@ -53,3 +52,4 @@ about:
 extra:
   recipe-maintainers:
     - chrisburr
+    - synapticarbors
