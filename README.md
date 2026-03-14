@@ -337,4 +337,5 @@ Feedstock Maintainers
 =====================
 
 * [@chrisburr](https://github.com/chrisburr/)
+* [@synapticarbors](https://github.com/synapticarbors/)
 
