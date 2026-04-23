@@ -1,5 +1,5 @@
 context:
-  version: 0.7.8
+  version: "0.7.13"
 
 package:
   name: python-hyperscan
@@ -7,10 +7,10 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/h/hyperscan/hyperscan-${{ version }}.tar.gz
-    sha256: 1ed6c87eaf32f77c89fec8c102f20bc677e44c4ce80bde903620f274ea4b8ed7
+    sha256: ca3743286b4dacf7f6e9dcab0fa8d883663f76a72c4adaf4b5d2e806edc07615
 
 build:
-  number: 2
+  number: 0
   skip: win
   script: ${{ PYTHON }} -m pip install .
 
