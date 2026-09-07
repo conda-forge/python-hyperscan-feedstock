@@ -17,10 +17,15 @@ build:
   # access. Setting both HS_SRC_ROOT and HS_BUILD_LIB_ROOT selects upstream's
   # "pre-built Hyperscan" path, which links the static libhs/libhs_runtime/
   # libchimera/libpcre already in the host prefix instead.
-  script: >
-    ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-    --config-settings=cmake.define.HS_SRC_ROOT=$PREFIX/include/hs
-    --config-settings=cmake.define.HS_BUILD_LIB_ROOT=$PREFIX/lib
+  script:
+    # rattler-build exports CMAKE_GENERATOR="Unix Makefiles". Because that is
+    # set rather than unset, scikit-build-core skips both its Ninja default and
+    # its make fallback, and the build environment ships no make.
+    - export CMAKE_GENERATOR=Ninja
+    - >
+      ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+      --config-settings=cmake.define.HS_SRC_ROOT=$PREFIX/include/hs
+      --config-settings=cmake.define.HS_BUILD_LIB_ROOT=$PREFIX/lib
 
 requirements:
   build:
