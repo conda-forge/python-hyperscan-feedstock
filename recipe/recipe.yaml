@@ -12,14 +12,23 @@ source:
 build:
   number: 0
   skip: win
-  script: ${{ PYTHON }} -m pip install .
+  # Left to itself the upstream CMakeLists.txt downloads Boost, PCRE and
+  # vectorscan and builds them in-tree, which cannot work without network
+  # access. Setting both HS_SRC_ROOT and HS_BUILD_LIB_ROOT selects upstream's
+  # "pre-built Hyperscan" path, which links the static libhs/libhs_runtime/
+  # libchimera/libpcre already in the host prefix instead.
+  script: >
+    ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+    --config-settings=cmake.define.HS_SRC_ROOT=$PREFIX/include/hs
+    --config-settings=cmake.define.HS_BUILD_LIB_ROOT=$PREFIX/lib
 
 requirements:
   build:
     - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
     - ${{ stdlib('c') }}
-    - pkg-config
+    - cmake
+    - ninja
     - if: build_platform != target_platform
       then:
         - cross-python_${{ target_platform }}
@@ -27,17 +36,35 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
-    - pdm-backend
+    - scikit-build-core
     - vectorscan
+    # libpcre.a is linked directly into the extension alongside libchimera.a
+    - pcre
   run:
     - python
+  ignore_run_exports:
+    by_name:
+      # vectorscan and pcre are consumed as static archives, so nothing is
+      # left to link against at runtime.
+      - pcre
 
 tests:
   - python:
       imports:
         - hyperscan
       pip_check: true
+  # vectorscan, chimera and PCRE are linked in as static archives, so a broken
+  # chimera or a PCRE built without Unicode support would still import cleanly.
+  # The upstream suite covers both.
+  - script:
+      - pytest -v tests/
+    requirements:
+      run:
+        - pytest
+        - pytest-mock
+    files:
+      source:
+        - tests/
 
 about:
   summary: Python bindings for Hyperscan.
