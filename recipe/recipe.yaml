@@ -10,7 +10,7 @@ source:
     sha256: 1724e87e8f77f033a4592dc2cda7aecd10c91dfc718b55fa5379d0c95cff28e8
 
 build:
-  number: 0
+  number: 1
   skip: win
   # Left to itself the upstream CMakeLists.txt downloads Boost, PCRE and
   # vectorscan and builds them in-tree, which cannot work without network
