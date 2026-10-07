@@ -1,5 +1,5 @@
 context:
-  version: "0.8.2"
+  version: "0.9.0"
 
 package:
   name: python-hyperscan
@@ -7,10 +7,10 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/h/hyperscan/hyperscan-${{ version }}.tar.gz
-    sha256: 1724e87e8f77f033a4592dc2cda7aecd10c91dfc718b55fa5379d0c95cff28e8
+    sha256: 4af20f97b4fc4420ae8cb11b5df67280983eb6c57dc21c28ffdee1d00f6f8a68
 
 build:
-  number: 1
+  number: 0
   skip: win
   # Left to itself the upstream CMakeLists.txt downloads Boost, PCRE and
   # vectorscan and builds them in-tree, which cannot work without network
