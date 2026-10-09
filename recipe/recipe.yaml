@@ -1,5 +1,5 @@
 context:
-  version: "0.9.0"
+  version: "0.9.1"
 
 package:
   name: python-hyperscan
@@ -7,7 +7,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/h/hyperscan/hyperscan-${{ version }}.tar.gz
-    sha256: 4af20f97b4fc4420ae8cb11b5df67280983eb6c57dc21c28ffdee1d00f6f8a68
+    sha256: 435aac3317b502ed73b183a35a58073853920b767d2e150722877f00c89ed824
 
 build:
   number: 0
